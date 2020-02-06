@@ -27,10 +27,6 @@ public class MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Horizontal"))
-        {
-            Debug.Log("Move");
-            rb.velocity = Vector2.right * Input.GetAxis("Horizontal") * velocity;
-        }
+        rb.velocity = Vector2.right * Input.GetAxis("Horizontal") * velocity;
     }
 }
