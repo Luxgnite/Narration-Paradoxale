@@ -19,12 +19,13 @@ public class MessageManager : MonoBehaviour
         else if (_instance != this)
             Destroy(this.gameObject);
 
-        DontDestroyOnLoad(this);
     }
 
     public void ShowMessage(string message = "...", float timeToDie = 5f)
     {
-        actualMessage = Instantiate(messagePrefab);
+        DestroyActualMessage();
+
+        actualMessage = Instantiate(messagePrefab, new Vector3(0,0,-1000), Quaternion.identity);
         actualMessage.gameObject.transform.SetParent(messageCanvas.transform, false);
 
         actualMessage.displayText = message;
@@ -35,12 +36,21 @@ public class MessageManager : MonoBehaviour
     //Surcharge de ShowMessage
     public void ShowMessage(GameObject target, string message = "...", float timeToDie = 5f)
     {
-        actualMessage = Instantiate(messagePrefab);
+        DestroyActualMessage();
+
+        actualMessage = Instantiate(messagePrefab, new Vector3(0, 0, -1000), Quaternion.identity);
         actualMessage.gameObject.transform.SetParent(messageCanvas.transform, false);
 
         actualMessage.displayText = message;
         actualMessage.target = target;
         actualMessage.timeToDie = timeToDie;
+    }
+
+    //A changer comme système
+    public void DestroyActualMessage()
+    {
+        if (actualMessage != null)
+            DestroyImmediate(actualMessage.gameObject);
     }
 
     //Faire une fonction pour supprimer le message actuellement affiché si on veut afficher un nouveau message pour la même cible

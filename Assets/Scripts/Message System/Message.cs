@@ -33,7 +33,7 @@ public class Message : MonoBehaviour
             positionUI.position = new Vector3(
                 target.transform.position.x,
                 target.transform.position.y + yRangeFromTarget + spriteTarget.bounds.extents.y,
-                positionUI.position.z);
+                0);
     }
 
     void DestroyMessage()
