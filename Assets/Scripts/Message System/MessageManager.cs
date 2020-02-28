@@ -1,0 +1,49 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MessageManager : MonoBehaviour
+{
+    public static MessageManager _instance;
+
+    public Canvas messageCanvas;
+    public Message messagePrefab;
+
+    public Message actualMessage;
+
+    private void Start()
+    {
+        //Singleton Pattern
+        if (_instance == null)
+            _instance = this;
+        else if (_instance != this)
+            Destroy(this.gameObject);
+
+        DontDestroyOnLoad(this);
+    }
+
+    public void ShowMessage(string message = "...", float timeToDie = 5f)
+    {
+        actualMessage = Instantiate(messagePrefab);
+        actualMessage.gameObject.transform.SetParent(messageCanvas.transform, false);
+
+        actualMessage.displayText = message;
+        actualMessage.target = GameManager._instance.played;
+        actualMessage.timeToDie = timeToDie;
+    }
+
+    //Surcharge de ShowMessage
+    public void ShowMessage(GameObject target, string message = "...", float timeToDie = 5f)
+    {
+        actualMessage = Instantiate(messagePrefab);
+        actualMessage.gameObject.transform.SetParent(messageCanvas.transform, false);
+
+        actualMessage.displayText = message;
+        actualMessage.target = target;
+        actualMessage.timeToDie = timeToDie;
+    }
+
+    //Faire une fonction pour supprimer le message actuellement affiché si on veut afficher un nouveau message pour la même cible
+    //Faire un buffer ?
+    //Faire une pensée du personnage quand un joueur spamme un même objet intéractif - "je ne comprend pas, cette boîte m'obsède mais je n'arrive pas à dire pourquoi..."
+}
