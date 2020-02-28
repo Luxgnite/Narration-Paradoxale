@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance = null;
+    public static GameManager _instance = null;
 
     public Camera camera;
-    public GameObject player;
+    public GameObject played;
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
+        //Singleton Pattern
+        if (_instance == null)
+            _instance = this;
+        else if (_instance != this)
+            Destroy(this.gameObject);
 
         DontDestroyOnLoad(gameObject);
 
         camera = GameObject.FindObjectOfType<Camera>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        played = GameObject.FindGameObjectWithTag("Player");
 
         InitGame();
     }
