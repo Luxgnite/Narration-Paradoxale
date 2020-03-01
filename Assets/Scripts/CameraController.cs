@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        targetFollowed = GameManager._instance.played;
+        targetFollowed = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
