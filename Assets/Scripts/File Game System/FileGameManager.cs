@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Text.RegularExpressions;
 
-public class VirtualFileInfo
+public abstract class VirtualItemInfo
 {
-    protected string path;
+    protected string parentPath;
     protected string name;
+    protected VirtualFolderInfo parent;
 
     public string Path
     {
-        get => path;
-        set => path = value;
+        get => parentPath;
+        set => parentPath = value;
     }
 
     public string Name
@@ -20,20 +22,98 @@ public class VirtualFileInfo
         set => name = value;
     }
 
-    public VirtualFileInfo(string pathCreation, string name)
+    public string FullPath
     {
-        path = pathCreation;
+        get => parentPath + "\\" + name;
+    }
+
+    public VirtualFolderInfo Parent
+    {
+        get => parent;
+        set
+        {
+            if(value.FullPath == parentPath)
+                parent = value;
+        }
+    }
+
+    //Constructeur
+    public VirtualItemInfo(string pathCreation, string name)
+    {
+        parentPath = pathCreation;
         this.name = name;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is VirtualItemInfo)
+        {
+            VirtualItemInfo viiObj = (VirtualItemInfo)obj;
+            if (viiObj.name == this.name && viiObj.parentPath == this.parentPath)
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
+    public override abstract string ToString();
+}
+
+public class VirtualFileInfo : VirtualItemInfo
+{
+    //Constructeur
+    public VirtualFileInfo(string pathCreation, string name) : base(pathCreation,name) 
+    {
+    }
+
+    public override string ToString()
+    {
+        return name;
     }
 }
 
-public class VirtualFolderInfo : VirtualFileInfo
+public class VirtualFolderInfo : VirtualItemInfo
 {
-    public List<VirtualFileInfo> content;
+    public List<VirtualItemInfo> content;
 
     public VirtualFolderInfo(string pathCreation, string name) : base(pathCreation, name)
     {
-        content = new List<VirtualFileInfo>();
+        content = new List<VirtualItemInfo>();
+    }
+
+    public VirtualItemInfo AddItem(VirtualItemInfo newItem)
+    {
+        foreach(VirtualItemInfo item in content)
+        {
+            if(item.Equals(newItem))
+                return item;
+        }
+
+        newItem.Parent = this;
+        this.content.Add(newItem);
+
+        return newItem;
+    }
+
+    public override string ToString()
+    {
+        string space = Regex.Replace(this.name, ".", " ");
+        string result = this.name + "\n";
+
+        List<string> itemString = new List<string>();
+
+        foreach (VirtualItemInfo item in content)
+        {
+            itemString.Add(item.ToString());
+        }
+
+        foreach(string item in itemString)
+        {
+            result = result + space + "|_" + item + "\n";
+        }
+        return result;
     }
 }
 
@@ -46,10 +126,15 @@ public class VirtualFileSystem
         get => root;
     }
 
-    //Constructeur
-    public VirtualFileSystem(string rootName)
+    public string RootPath
     {
-        root = new VirtualFolderInfo(rootName, rootName);
+        get => root.FullPath;
+    }
+
+    //Constructeur
+    public VirtualFileSystem(string rootPath, string rootName)
+    {
+        root = new VirtualFolderInfo(rootPath, rootName);
     }
 
     public VirtualFileInfo CreateFile(string path, string name)
@@ -59,7 +144,7 @@ public class VirtualFileSystem
         if (parent != null)
         {
             VirtualFileInfo newFile = new VirtualFileInfo(path, name);
-            parent.content.Add(newFile);
+            parent.AddItem(newFile);
             return newFile;
         }
         else
@@ -74,33 +159,40 @@ public class VirtualFileSystem
         if(parent != null)
         {
             VirtualFolderInfo newFolder = new VirtualFolderInfo(path, name);
-            parent.content.Add(newFolder);
+            parent.AddItem(newFolder);
             return newFolder;
         }
         else
             return null;
     }
 
-    public VirtualFileInfo FindItem(string path)
+    public VirtualItemInfo FindItem(string path)
     {
         string[] pathSplit = ParsePath(path);
 
-        VirtualFileInfo result = null;
+        VirtualItemInfo result = null;
 
         VirtualFolderInfo scryedFolder = root;
 
-        for (int i = 1; i < pathSplit.Length - 1; i++)
+        if (path == "" || path == "\\")
         {
-            foreach (VirtualFileInfo vf in scryedFolder.content)
+            return root;
+        }
+        else
+        {
+            for (int i = 1; i < pathSplit.Length; i++)
             {
-                if (vf.Name == pathSplit[i] && vf is VirtualFolderInfo)
+                foreach (VirtualItemInfo vf in scryedFolder.content)
                 {
-                    scryedFolder = (VirtualFolderInfo) vf;
-                    break;
-                }
-                else if(i == pathSplit.Length -1 && !(vf is VirtualFolderInfo))
-                {
-                    result = vf;
+                    if (vf.Name == pathSplit[i] && vf is VirtualFolderInfo)
+                    {
+                        scryedFolder = (VirtualFolderInfo)vf;
+                        break;
+                    }
+                    else if (i == pathSplit.Length - 1 && !(vf is VirtualFolderInfo))
+                    {
+                        result = vf;
+                    }
                 }
             }
         }
@@ -114,6 +206,48 @@ public class VirtualFileSystem
             return null;
     }
 
+    public VirtualFolderInfo FindFolder(string path)
+    {
+        string[] pathSplit = ParsePath(path);
+        Debug.Log(pathSplit.Length);
+        VirtualFolderInfo result = null;
+
+        VirtualFolderInfo scryedFolder = root;
+
+        if (path == "" || path == "\\")
+        {
+            return root;
+        }
+        else
+        {
+            for (int i = 1; i < pathSplit.Length; i++)
+            {
+                foreach (VirtualItemInfo vf in scryedFolder.content)
+                {
+                    Debug.Log(vf.Name);
+                    if (vf.Name == pathSplit[i] && vf is VirtualFolderInfo)
+                    {
+                        scryedFolder = (VirtualFolderInfo)vf;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (result == null)
+            result = scryedFolder;
+
+        if (result.Name == pathSplit[pathSplit.Length - 1])
+            return result;
+        else
+            return null;
+    }
+
+    public override string ToString()
+    {
+        return root.ToString();
+    }
+
     public string[] ParsePath(string path)
     {
         return path.Split('\\');
@@ -123,7 +257,6 @@ public class VirtualFileSystem
 public class FileManager
 {
     string desktopPath;
-    string rootFileGamePath;
 
     private VirtualFileSystem vfs;
 
@@ -134,7 +267,7 @@ public class FileManager
 
     public string Root
     {
-        get => rootFileGamePath;
+        get => vfs.RootPath;
     }
 
     //Constructeur
@@ -142,20 +275,48 @@ public class FileManager
     {
         desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
 
-        if (!Directory.Exists(desktopPath + "\\" + rootName)) ;
-            rootFileGamePath = Directory.CreateDirectory(desktopPath + "\\" + rootName).FullName;
+        if (!Directory.Exists(desktopPath + "\\" + rootName))
+            Directory.CreateDirectory(desktopPath + "\\" + rootName);
 
-        vfs = new VirtualFileSystem(rootName);
+        vfs = new VirtualFileSystem(desktopPath, rootName);
     }
 
-    void ReadTreeView()
+    public VirtualFileSystem ReadTreeView(string rootPath)
     {
+        var root = new DirectoryInfo(rootPath);
 
+        VirtualFileSystem newVfs = new VirtualFileSystem(root.Parent.FullName, root.Name);
+
+        List<DirectoryInfo> folderBuffer = new List<DirectoryInfo>();
+        folderBuffer.Add(root);
+
+        while(folderBuffer.Count > 0)
+        {
+            DirectoryInfo folder = folderBuffer[0];
+
+            VirtualFolderInfo scryedVirtualFolder = newVfs.FindFolder(folder.FullName.Remove(0, root.FullName.Length));
+            foreach (DirectoryInfo subfolder in folder.EnumerateDirectories())
+            {
+                folderBuffer.Add(subfolder);
+
+                scryedVirtualFolder.AddItem(new VirtualFolderInfo(subfolder.Parent.FullName, subfolder.Name));
+            }
+
+            foreach (FileInfo file in folder.EnumerateFiles())
+            {
+                scryedVirtualFolder.AddItem(new VirtualFileInfo(file.Directory.FullName, file.Name));
+            }
+
+            folderBuffer.RemoveAt(0);
+        }
+
+        //Return a virtual file system
+        return newVfs;
     }
 
     public void GenerateFile(string fileName)
     {
-        string filePath = rootFileGamePath + "\\" + fileName;
+        string filePath = this.Root + "\\" + fileName;
 
         try
         {
@@ -171,7 +332,7 @@ public class FileManager
 
     public void GenerateFile(string filePath, string fileName)
     {
-        filePath = rootFileGamePath + "\\" + filePath + "\\" + fileName;
+        filePath = this.Root + "\\" + filePath + "\\" + fileName;
 
         try
         {
@@ -188,7 +349,7 @@ public class FileManager
 
     public void GenerateDirectory(string directoryName)
     {
-        string directoryPath = rootFileGamePath + "\\" + directoryName;
+        string directoryPath = this.Root + "\\" + directoryName;
 
         try
         {
@@ -206,7 +367,7 @@ public class FileManager
 
     public void GenerateDirectory(string directoryPath, string directoryName)
     {
-        directoryPath = rootFileGamePath + "\\" + directoryPath + "\\" + directoryName;
+        directoryPath = this.Root + "\\" + directoryPath + "\\" + directoryName;
 
         try
         {
@@ -245,6 +406,10 @@ public class FileGameManager : MonoBehaviour
             Destroy(this.gameObject);
 
         InitFileGame();
+
+        Debug.Log("Virtualizing...");
+        VirtualFileSystem vfs = fileManager.ReadTreeView(fileManager.Root);
+        Debug.Log("Result : " + vfs);
     }
 
     // Update is called once per frame
@@ -262,6 +427,8 @@ public class FileGameManager : MonoBehaviour
         fileManager.GenerateDirectory("ROOM 002");
         fileManager.GenerateDirectory("ROOM 003");
         fileManager.GenerateDirectory("ROOM 004");
+
+        fileManager.GenerateFile("character.txt");
     }
 
     
