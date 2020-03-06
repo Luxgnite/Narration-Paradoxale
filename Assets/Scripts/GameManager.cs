@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,5 +42,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        try
+        {
+            SceneManager.LoadSceneAsync(sceneName);
+        }
+        catch (Exception e)
+        {
+            if (sceneName == null)
+                Debug.Log("Couldn't load scene because sceneToLoad is undefined!");
+            else
+                Debug.Log("Couldn't load scene " + sceneName);
+        }
     }
 }
