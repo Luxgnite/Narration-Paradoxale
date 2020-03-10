@@ -3,29 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Text.RegularExpressions;
+using System;
 
 public class FileManager
 {
     string desktopPath;
+    string rootName;
 
-    public string Root
+    public string RootPath
     {
-        get => null;
+        get => desktopPath;
+    }
+
+    public string RootName
+    {
+        get => rootName;
+    }
+
+    public string RootFullPath
+    {
+        get => desktopPath + "\\" + rootName;
     }
 
     //Constructeur
     public FileManager(string rootName)
     {
         desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        this.rootName = rootName;
 
-        if (!Directory.Exists(desktopPath + "\\" + rootName))
-            Directory.CreateDirectory(desktopPath + "\\" + rootName);
+        if (!Directory.Exists(RootFullPath))
+            Copy("ROOT", desktopPath + "\\ROOT");
 
     }
 
     public void GenerateFile(string fileName)
     {
-        string filePath = this.Root + "\\" + fileName;
+        string filePath = this.RootFullPath  + fileName;
 
         try
         {
@@ -34,13 +47,13 @@ public class FileManager
         }
         catch (IOException ex)
         {
-            Debug.Log("Error when creating folder");
+            Debug.Log("Error when creating file " + filePath);
         }
     }
 
     public void GenerateFile(string filePath, string fileName)
     {
-        filePath = this.Root + "\\" + filePath + "\\" + fileName;
+        filePath = this.RootFullPath + "\\" + filePath + "\\" + fileName;
 
         try
         {
@@ -56,14 +69,18 @@ public class FileManager
 
     public void GenerateDirectory(string directoryName)
     {
-        string directoryPath = this.Root + "\\" + directoryName;
+        string directoryPath = this.RootFullPath + "\\" + directoryName;
 
         try
         {
             if (!Directory.Exists(directoryPath))
                 Directory.CreateDirectory(directoryPath);
             Debug.Log("Created folder " + directoryName + " at " + directoryPath);
-
+            /*foreach(SceneSync scene in GameManager._instance.scenesToSynchronize)
+            {
+                if (scene.name == directoryName)
+                    scene.path = directoryPath;
+            }*/
         }
         catch (IOException ex)
         {
@@ -73,15 +90,18 @@ public class FileManager
 
     public void GenerateDirectory(string directoryPath, string directoryName)
     {
-        directoryPath = this.Root + "\\" + directoryPath + "\\" + directoryName;
+        directoryPath = this.RootFullPath + "\\" + directoryPath + "\\" + directoryName;
 
         try
         {
             if (!Directory.Exists(directoryPath))
                 Directory.CreateDirectory(directoryPath);
             Debug.Log("Created folder " + directoryName + " at "+ directoryPath);
-
-
+            foreach (SceneSync scene in GameManager._instance.scenesToSynchronize)
+            {
+                if (scene.name == directoryName)
+                    scene.path = directoryPath;
+            }
         }
         catch (IOException ex)
         {
@@ -93,59 +113,93 @@ public class FileManager
     {
 
     }
+
+    public void Copy(string sourceDirectory, string targetDirectory)
+    {
+        var diSource = new DirectoryInfo(sourceDirectory);
+        var diTarget = new DirectoryInfo(targetDirectory);
+
+        CopyAll(diSource, diTarget);
+    }
+
+    public static void CopyAll(DirectoryInfo source, DirectoryInfo target)
+    {
+        Directory.CreateDirectory(target.FullName);
+
+        // Copy each file into the new directory.
+        foreach (FileInfo fi in source.GetFiles())
+        {
+            Console.WriteLine(@"Copying {0}\{1}", target.FullName, fi.Name);
+            fi.CopyTo(Path.Combine(target.FullName, fi.Name), true);
+        }
+
+        // Copy each subdirectory using recursion.
+        foreach (DirectoryInfo diSourceSubDir in source.GetDirectories())
+        {
+            DirectoryInfo nextTargetSubDir =
+                target.CreateSubdirectory(diSourceSubDir.Name);
+            CopyAll(diSourceSubDir, nextTargetSubDir);
+        }
+    }
 }
 
-public class FileGameManager : MonoBehaviour
+public class FileGameManager
 {
-    public static FileGameManager _instance = null;
-
     public FileManager fileManager;
     public FileSystemWatcher watcher;
+    
 
     // Start is called before the first frame update
-    void Start()
+    public FileGameManager()
     {
-        //Singleton Pattern
-        if (_instance == null)
-            _instance = this;
-        else if (_instance != this)
-            Destroy(this.gameObject);
-
         InitFileGame();
 
-        watcher = new FileSystemWatcher(fileManager.Root);
+        watcher = new FileSystemWatcher(fileManager.RootFullPath);
+        Debug.Log("Watching " + watcher.Path);
         watcher.IncludeSubdirectories = true;
+        watcher.EnableRaisingEvents = true;
 
         watcher.Changed += OnChanged;
-        watcher.Created += OnChanged;
-        watcher.Deleted += OnChanged;
+        watcher.Created += OnCreated;
+        watcher.Deleted += OnDeleted;
         watcher.Renamed += OnRenamed;
 
         watcher.EnableRaisingEvents = true;
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
     }
 
     void InitFileGame()
     {
         //On génère la racine
         fileManager = new FileManager("ROOT");
-
-        fileManager.GenerateDirectory("ROOM 001");
-        fileManager.GenerateDirectory("ROOM 002");
-        fileManager.GenerateDirectory("ROOM 003");
-        fileManager.GenerateDirectory("ROOM 004");
-
-        fileManager.GenerateFile("character.txt");
+        
     }
 
     private void OnChanged(object source, FileSystemEventArgs e)
     {
         Debug.Log($"File: {e.FullPath} {e.ChangeType}");
+    }
+
+    private void OnCreated(object source, FileSystemEventArgs e)
+    {
+        Debug.Log($"File: {e.FullPath} {e.ChangeType}");
+    }
+
+    private void OnDeleted(object source, FileSystemEventArgs e)
+    {
+        Debug.Log($"File: {e.FullPath} {e.ChangeType}");
+        if(e.Name.EndsWith(".txt"))
+        {
+            Debug.Log("Looking for " + e.Name +" object to synchronize...");
+            foreach (FileSync obj in GameManager._instance.filesToSynchronize)
+            {
+                if ((fileManager.RootFullPath + "\\" + obj.fileName) == e.Name)
+                {
+                    obj.isExisting = false;
+                    GameManager._instance.syncQueue.Enqueue(obj);
+                }
+            }
+        }
+            
     }
 
     private void OnRenamed(object source, RenamedEventArgs e)

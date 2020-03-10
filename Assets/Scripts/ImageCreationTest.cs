@@ -39,7 +39,7 @@ public class ImageCreationTest : MonoBehaviour
         {
             Debug.Log("Error when creating folder");
         }
-        File.Copy(path, desktopPath + "\\Folder\\untitled_peter_kogler.jpg");
+        File.Copy(path, desktopPath);
         File.SetCreationTime(desktopPath + "\\Folder\\untitled_peter_kogler.jpg", new System.DateTime(1985, 4, 3 ));
         File.SetLastWriteTime(desktopPath + "\\Folder\\untitled_peter_kogler.jpg", new System.DateTime(1985, 4, 3));
         File.SetLastAccessTime(desktopPath + "\\Folder\\untitled_peter_kogler.jpg", new System.DateTime(1985, 4, 3));

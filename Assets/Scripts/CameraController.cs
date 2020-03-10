@@ -18,9 +18,12 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        this.transform.position = new Vector3(
-            targetFollowed.transform.position.x,
-            targetFollowed.transform.position.y + yOffset,
-            transform.position.z);
+        if(targetFollowed == null)
+            targetFollowed = GameObject.FindGameObjectWithTag("Player");
+        if(targetFollowed != null)
+            this.transform.position = new Vector3(
+                targetFollowed.transform.position.x,
+                targetFollowed.transform.position.y + yOffset,
+                transform.position.z);
     }
 }

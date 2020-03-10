@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
-    public string sceneToLoad;
+    public SceneSync sceneToLoad;
 
     private void OnMouseDown()
     {
