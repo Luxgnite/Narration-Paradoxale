@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-
         DontDestroyOnLoad(gameObject);
 
         fgm = new FileGameManager();
@@ -59,11 +58,8 @@ public class GameManager : MonoBehaviour
             syncTable.Add(file, null);
             file.Init();
         }
-    }
 
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 10, 10), this.actualPath);
+        EventManager.Synchronization();
     }
 
     // Update is called once per frame
@@ -79,47 +75,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ChangeScene(string sceneName)
+    public void ChangeScene(SceneSync scene)
     {
         try
         {
-            if (sceneName == "ROOT")
-                actualPath = "\\";
-            else
-                actualPath = "\\" + sceneName + "\\";
-
-            SceneManager.LoadSceneAsync(sceneName);
+            actualPath = scene.Path;
+            SceneManager.LoadSceneAsync(scene.sceneName);
         }
         catch (Exception e)
         {
-            if (sceneName == null)
+            if (scene.sceneName == null)
                 Debug.Log("Couldn't load scene because sceneToLoad is undefined!");
             else
-                Debug.Log("Couldn't load scene " + sceneName);
+                Debug.Log("Couldn't load scene " + scene.sceneName);
         }
     }
 
-
     public void SynchronizeAll()
     {
-        foreach (FileSync file in filesToSynchronize)
+        EventManager.Synchronization();
+        for(int i = 0; i< objectsToSynchronize.Count; i++)
         {
-            syncQueue.Enqueue(file);
+            if(objectsToSynchronize[i] == null)
+            {
+                objectsToSynchronize.RemoveAt(i);
+            }
         }
     }
 
     public void CreateObjectToSynchronize(FileSync fileToSync)
     {
-        Debug.Log("Creating object to synchronize...");
-        if (syncTable[fileToSync] == null)
+        if(actualPath == fileToSync.path)
         {
-            GameObject instance = Instantiate(fileToSync.prefab);
-            objectsToSynchronize.Add(instance);
+            Debug.Log("Creating object to synchronize...");
+            if (syncTable[fileToSync] == null)
+            {
+                GameObject instance = Instantiate(fileToSync.prefab);
+                objectsToSynchronize.Add(instance);
 
-            syncTable[fileToSync] = instance;
+                syncTable[fileToSync] = instance;
 
-
-            Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
+                Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
+            }
         }
     }
 

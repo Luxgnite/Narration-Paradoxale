@@ -31,8 +31,9 @@ public class FileManager
         desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
         this.rootName = rootName;
 
-        if (!Directory.Exists(RootFullPath))
-            Copy("ROOT", desktopPath + "\\ROOT");
+        if (Directory.Exists(RootFullPath))
+            Directory.Delete(RootFullPath, true);
+        Copy("ROOT", desktopPath + "\\ROOT");
 
     }
 
@@ -100,7 +101,7 @@ public class FileManager
             foreach (SceneSync scene in GameManager._instance.scenesToSynchronize)
             {
                 if (scene.name == directoryName)
-                    scene.path = directoryPath;
+                    scene.Path = directoryPath;
             }
         }
         catch (IOException ex)
@@ -141,13 +142,51 @@ public class FileManager
             CopyAll(diSourceSubDir, nextTargetSubDir);
         }
     }
+
+    public DirectoryInfo[] SearchDirectory(string folderName)
+    {
+        DirectoryInfo root = new DirectoryInfo(RootFullPath);
+        List<DirectoryInfo> results = new List<DirectoryInfo>();
+
+        foreach (DirectoryInfo directory in root.GetDirectories(folderName, SearchOption.AllDirectories))
+        {
+            if (Path.GetFileName(directory.Name) == folderName)
+                results.Add(directory);
+        }
+
+        if (results.Count > 0)
+            return results.ToArray();
+        else
+            return null;
+    }
+
+    public FileInfo[] SearchFile(string fileName)
+    {
+        DirectoryInfo root = new DirectoryInfo(RootFullPath);
+        List<FileInfo> results = new List<FileInfo>();
+
+        foreach (FileInfo directory in root.GetFiles(fileName, SearchOption.AllDirectories))
+        {
+            if (Path.GetFileName(directory.Name) == fileName)
+                results.Add(directory);
+        }
+
+        if (results.Count > 0)
+            return results.ToArray();
+        else
+            return null;
+    }
+
+    public string RelativePath(string absolutePath)
+    {
+        return Regex.Replace(absolutePath, Regex.Escape(RootFullPath + "\\"), "\\");
+    }
 }
 
 public class FileGameManager
 {
     public FileManager fileManager;
     public FileSystemWatcher watcher;
-    
 
     // Start is called before the first frame update
     public FileGameManager()
@@ -155,25 +194,47 @@ public class FileGameManager
         InitFileGame();
 
         watcher = new FileSystemWatcher(fileManager.RootFullPath);
-        Debug.Log("Watching " + watcher.Path);
         watcher.IncludeSubdirectories = true;
         watcher.EnableRaisingEvents = true;
-
         watcher.Changed += OnChanged;
         watcher.Created += OnCreated;
         watcher.Deleted += OnDeleted;
         watcher.Renamed += OnRenamed;
 
-        watcher.EnableRaisingEvents = true;
+        Debug.Log("Watching files in" + watcher.Path);
     }
 
     void InitFileGame()
     {
         //On génère la racine
         fileManager = new FileManager("ROOT");
-        
-    }
+        foreach(FileSync file in GameManager._instance.filesToSynchronize)
+        {
+            FileInfo location = fileManager.SearchFile(file.fileName)[0];
+            if (location != null)
+            {
+                string path = Path.GetDirectoryName(fileManager.RelativePath(location.FullName));
+                if (path == "") { file.Path = "\\"; } else { file.Path = path; }
+            }
+            else
+                file.Path = "";
+        }
 
+        foreach (SceneSync scene in GameManager._instance.scenesToSynchronize)
+        {
+            DirectoryInfo location = fileManager.SearchDirectory(scene.sceneName)[0];
+            if (location != null)
+            {
+                string path = Path.GetPathRoot(fileManager.RelativePath(location.FullName));
+                if(path == "") { scene.Path = "\\"; } else { scene.Path = path; }
+            }
+            else
+                scene.Path = "";
+        }
+
+
+    }
+    
     private void OnChanged(object source, FileSystemEventArgs e)
     {
         Debug.Log($"File: {e.FullPath} {e.ChangeType}");
@@ -187,19 +248,29 @@ public class FileGameManager
     private void OnDeleted(object source, FileSystemEventArgs e)
     {
         Debug.Log($"File: {e.FullPath} {e.ChangeType}");
-        if(e.Name.EndsWith(".txt"))
+        if (!Path.GetExtension(e.FullPath).Equals(""))
         {
-            Debug.Log("Looking for " + e.Name +" object to synchronize...");
             foreach (FileSync obj in GameManager._instance.filesToSynchronize)
             {
-                if ((fileManager.RootFullPath + "\\" + obj.fileName) == e.Name)
+                if (Path.GetFileName(e.FullPath) == e.Name)
                 {
-                    obj.isExisting = false;
+                    obj.Path = "";
                     GameManager._instance.syncQueue.Enqueue(obj);
                 }
             }
         }
-            
+        else
+        {
+            foreach (SceneSync folder in GameManager._instance.scenesToSynchronize)
+            { 
+                if (Path.GetFileName(e.FullPath) == folder.sceneName)
+                {
+                    Debug.Log("Changing scene " + folder.sceneName + " parameters");
+                    folder.Path = "";
+                    EventManager.SyncFolders();
+                }
+            }
+        }
     }
 
     private void OnRenamed(object source, RenamedEventArgs e)

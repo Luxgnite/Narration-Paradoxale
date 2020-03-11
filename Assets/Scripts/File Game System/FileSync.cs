@@ -1,32 +1,57 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New FileSync", menuName = "FileSync")]
 public class FileSync : ScriptableObject
 {
-    public bool isExisting = true;
+    private bool isExisting = true;
     public bool isCorrupted = false;
     public string path = "";
-    public string originalPath = "";
     public GameObject prefab;
     public string fileName = "";
 
-    public string OriginalFullPath
+    public bool IsExisting
     {
-        get => originalPath + fileName;
+        get => isExisting;
+    }
+
+    public string FullPath
+    {
+        get => path + fileName;
+    }
+
+    public string Path
+    {
+        get
+        {
+            return path;
+        }
+        set
+        {
+            path = value;
+            if (path == "")
+                isExisting = false;
+            else
+                isExisting = true;
+        }
     }
 
     public void Init()
     {
-        isExisting = true;
-        path = originalPath;
+        EventManager.Synchronize += OnSynchronize;
+        Synchronize();
+    }
+
+    private void OnSynchronize()
+    {
         Synchronize();
     }
 
     public void Synchronize()
     {
-        if (isExisting == true && GameManager._instance.actualPath == path)
+        if (isExisting == true)
             GameManager._instance.CreateObjectToSynchronize(this);
         else if (!isExisting)
             GameManager._instance.DestroyObjectToSynchronize(this);

@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 752b52af0c146004f8275b56e1db4c96, type: 3}
-  m_Name: New FileSync
+  m_Script: {fileID: 11500000, guid: ae691916a46a91a45bbac2457f0ef189, type: 3}
+  m_Name: ROOM 001
   m_EditorClassIdentifier: 
-  isCorrupted: 0
-  path: 
-  prefab: {fileID: 5077629265357298577, guid: a17b7f5bee6d1b8499dc8330aaa4f5bc, type: 3}
-  fileName: lul.txt
+  originalPath: \ROOM 001
+  sceneName: ROOM 001
