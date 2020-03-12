@@ -14,7 +14,6 @@ public class Door : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Awake");
         sprite = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         EventManager.Synchronize += OnSynchronize;
@@ -30,7 +29,6 @@ public class Door : MonoBehaviour
     {
         if(checkSync)
         {
-            Debug.Log("Synchronizing Door : " + this.name);
             SyncDoorState();
             checkSync = false;
         }

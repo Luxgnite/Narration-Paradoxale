@@ -156,6 +156,11 @@ public class FileManager
 
         if (results.Count > 0)
             return results.ToArray();
+        else if (folderName == rootName)
+        {
+            results.Add(root);
+            return results.ToArray();
+        }
         else
             return null;
     }
@@ -179,7 +184,10 @@ public class FileManager
 
     public string RelativePath(string absolutePath)
     {
-        return Regex.Replace(absolutePath, Regex.Escape(RootFullPath + "\\"), "\\");
+        string result = "";
+        result =  Regex.Replace(absolutePath, Regex.Escape(RootFullPath), "\\");
+        result = Regex.Replace(result, Regex.Escape("\\\\"), "\\");
+        return result;
     }
 }
 
@@ -215,6 +223,7 @@ public class FileGameManager
             {
                 string path = Path.GetDirectoryName(fileManager.RelativePath(location.FullName));
                 if (path == "") { file.Path = "\\"; } else { file.Path = path; }
+                Debug.Log(file.fileName + " path is now " + file.Path);
             }
             else
                 file.Path = "";
@@ -225,8 +234,9 @@ public class FileGameManager
             DirectoryInfo location = fileManager.SearchDirectory(scene.sceneName)[0];
             if (location != null)
             {
-                string path = Path.GetPathRoot(fileManager.RelativePath(location.FullName));
+                string path = fileManager.RelativePath(location.FullName);
                 if(path == "") { scene.Path = "\\"; } else { scene.Path = path; }
+                Debug.Log(scene.sceneName + " path is now " + scene.Path);
             }
             else
                 scene.Path = "";

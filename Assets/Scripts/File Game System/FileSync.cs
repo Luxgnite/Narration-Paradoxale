@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New FileSync", menuName = "FileSync")]
 public class FileSync : ScriptableObject
 {
-    private bool isExisting = true;
+    protected bool isExisting = true;
     public bool isCorrupted = false;
     public string path = "";
     public GameObject prefab;
@@ -40,6 +40,7 @@ public class FileSync : ScriptableObject
 
     public void Init()
     {
+        Debug.Log("Initializing FileSync for " + fileName);
         EventManager.Synchronize += OnSynchronize;
         Synchronize();
     }

@@ -1297,13 +1297,14 @@ MonoBehaviour:
   played: {fileID: 0}
   objectsToSynchronize: []
   filesToSynchronize:
-  - {fileID: 11400000, guid: dc85ed257d226b944852a8c3189f3d82, type: 2}
+  - {fileID: 11400000, guid: 604211fdced3fc349bf3acc0cf0fc2c8, type: 2}
   - {fileID: 11400000, guid: 48af4c0917354c14ba7172f17fdaa0b2, type: 2}
   scenesToSynchronize:
   - {fileID: 11400000, guid: fc69452a34ad89d41b69cb0fc5323c21, type: 2}
   - {fileID: 11400000, guid: db9d5c72167cd714a941c75ca3982346, type: 2}
   - {fileID: 11400000, guid: da56d33b6127c184bb1dbcd932582f30, type: 2}
   - {fileID: 11400000, guid: 9cd0183e14cfc7042b79cfa114d3b1a6, type: 2}
+  - {fileID: 11400000, guid: bbe7246010cb6ec4ca13abed98e1341c, type: 2}
   actualPath: 
 --- !u!4 &1676869942
 Transform:

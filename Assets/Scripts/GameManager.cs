@@ -70,7 +70,10 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < syncQueue.Count; i++)
             {
                 Debug.Log("Dequeuing...");
-                syncQueue.Dequeue().Synchronize();
+
+                FileSync obj = syncQueue.Dequeue();
+                Debug.Log(obj.fileName + " path is now " + obj.FullPath);
+                obj.Synchronize();
             }
         }
     }
