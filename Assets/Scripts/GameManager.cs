@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Dequeuing...");
 
                 FileSync obj = syncQueue.Dequeue();
-                Debug.Log(obj.fileName + " path is now " + obj.FullPath);
+                Debug.Log(obj.fileName + " path is now " + obj.Path);
                 obj.Synchronize();
             }
         }
@@ -104,6 +104,42 @@ public class GameManager : MonoBehaviour
                 objectsToSynchronize.RemoveAt(i);
             }
         }
+    }
+
+    public FileSync SearchFileSync(string fileSyncName)
+    {
+        foreach (FileSync obj in GameManager._instance.filesToSynchronize)
+        {
+            if (fileSyncName == obj.fileName)
+                return obj;
+
+        }
+
+        return null;
+    }
+
+    public SceneSync SearchSceneSync(string sceneSyncName)
+    {
+        foreach (SceneSync obj in GameManager._instance.scenesToSynchronize)
+        {
+            if (sceneSyncName == obj.sceneName)
+                return obj;
+        }
+
+        return null;
+    }
+
+    public SceneSync SearchSceneSync(string sceneSyncPath, bool isPath)
+    {
+        if(isPath)
+        {
+            foreach (SceneSync obj in GameManager._instance.scenesToSynchronize)
+            {
+                if (sceneSyncPath == obj.Path)
+                    return obj;
+            }
+        }
+        return null;
     }
 
     public void CreateObjectToSynchronize(FileSync fileToSync)

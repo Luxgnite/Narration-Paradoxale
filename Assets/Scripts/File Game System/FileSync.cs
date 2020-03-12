@@ -45,14 +45,14 @@ public class FileSync : ScriptableObject
         Synchronize();
     }
 
-    private void OnSynchronize()
+    protected void OnSynchronize()
     {
         Synchronize();
     }
 
-    public void Synchronize()
+    public virtual void Synchronize()
     {
-        if (isExisting == true)
+        if (isExisting)
             GameManager._instance.CreateObjectToSynchronize(this);
         else if (!isExisting)
             GameManager._instance.DestroyObjectToSynchronize(this);

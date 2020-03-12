@@ -110,9 +110,11 @@ public class FileManager
         }
     }
 
-    public void MoveFile()
+    public void MoveFile(string fileName, string newPath)
     {
-
+        FileInfo file = SearchFile(fileName)[0];
+        Debug.Log("Moving " + file.FullName + " to " + AbsolutePath(newPath));
+        File.Move(file.FullName, AbsolutePath(newPath) + "\\" + fileName);
     }
 
     public void Copy(string sourceDirectory, string targetDirectory)
@@ -189,6 +191,11 @@ public class FileManager
         result = Regex.Replace(result, Regex.Escape("\\\\"), "\\");
         return result;
     }
+
+    public string AbsolutePath(string relativePath)
+    {
+        return RootFullPath + relativePath;
+    }
 }
 
 public class FileGameManager
@@ -244,6 +251,11 @@ public class FileGameManager
 
 
     }
+
+    public void MovePlayerFile(string newPath)
+    {
+        fileManager.MoveFile("character.txt", newPath);
+    }
     
     private void OnChanged(object source, FileSystemEventArgs e)
     {
@@ -260,25 +272,31 @@ public class FileGameManager
         Debug.Log($"File: {e.FullPath} {e.ChangeType}");
         if (!Path.GetExtension(e.FullPath).Equals(""))
         {
-            foreach (FileSync obj in GameManager._instance.filesToSynchronize)
+            FileInfo[] copy = fileManager.SearchFile(Path.GetFileName(e.FullPath));
+
+            FileSync obj = GameManager._instance.SearchFileSync(Path.GetFileName(e.FullPath));
+            if(obj != null)
             {
-                if (Path.GetFileName(e.FullPath) == e.Name)
+                if (copy == null)
                 {
                     obj.Path = "";
+                    GameManager._instance.syncQueue.Enqueue(obj);
+                }
+                else
+                {
+                    obj.Path = fileManager.RelativePath(copy[0].DirectoryName);
                     GameManager._instance.syncQueue.Enqueue(obj);
                 }
             }
         }
         else
         {
-            foreach (SceneSync folder in GameManager._instance.scenesToSynchronize)
-            { 
-                if (Path.GetFileName(e.FullPath) == folder.sceneName)
-                {
+            SceneSync folder = GameManager._instance.SearchSceneSync(Path.GetFileName(e.FullPath));
+            if (folder != null)
+            {
                     Debug.Log("Changing scene " + folder.sceneName + " parameters");
                     folder.Path = "";
                     EventManager.SyncFolders();
-                }
             }
         }
     }

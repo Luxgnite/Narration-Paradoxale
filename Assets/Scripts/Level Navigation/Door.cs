@@ -50,7 +50,7 @@ public class Door : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameManager._instance.ChangeScene(sceneSync);
+        GameManager._instance.fgm.MovePlayerFile(sceneSync.Path);
     }
 
     private void OnDestroy()
