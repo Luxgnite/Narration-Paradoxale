@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1674928847851907269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1674928847851907268}
+  - component: {fileID: 1674928847851907266}
+  - component: {fileID: 1674928847851907267}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1674928847851907268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674928847851907269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1674928847851907266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674928847851907269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e296ed77a94054b8d3a993a712bbce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _instance: {fileID: 0}
+--- !u!114 &1674928847851907267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674928847851907269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b333aacb0daa83744a035f0860d77d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  played: {fileID: 0}
+  objectsToSynchronize: []
+  filesToSynchronize:
+  - {fileID: 11400000, guid: 48af4c0917354c14ba7172f17fdaa0b2, type: 2}
+  - {fileID: 11400000, guid: 604211fdced3fc349bf3acc0cf0fc2c8, type: 2}
+  scenesToSynchronize:
+  - {fileID: 11400000, guid: fc69452a34ad89d41b69cb0fc5323c21, type: 2}
+  - {fileID: 11400000, guid: db9d5c72167cd714a941c75ca3982346, type: 2}
+  - {fileID: 11400000, guid: da56d33b6127c184bb1dbcd932582f30, type: 2}
+  - {fileID: 11400000, guid: 9cd0183e14cfc7042b79cfa114d3b1a6, type: 2}
+  - {fileID: 11400000, guid: bbe7246010cb6ec4ca13abed98e1341c, type: 2}
+  actualPath: 
