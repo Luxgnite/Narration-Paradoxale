@@ -9,12 +9,15 @@ public class Door : MonoBehaviour
     public SceneSync sceneSync;
     private SpriteRenderer sprite;
     private new Collider2D collider;
+    public Sprite altSprite;
+    private Sprite ogSprite;
 
     private bool checkSync = false;
 
     void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        ogSprite = sprite.sprite;
         collider = GetComponent<Collider2D>();
         EventManager.Synchronize += OnSynchronize;
         EventManager.SynchronizeFolders += OnSynchronize;
@@ -38,13 +41,19 @@ public class Door : MonoBehaviour
     {
         if (!sceneSync.IsExisting)
         {
-            sprite.enabled = false;
             collider.enabled = false;
+            if (altSprite != null)
+                sprite.sprite = altSprite;
+            else
+                sprite.enabled = false;
         }
         else
         {
-            sprite.enabled = true;
             collider.enabled = true;
+            if (altSprite != null)
+                sprite.sprite = ogSprite;
+            else
+                sprite.enabled = true;
         }
     }
 
