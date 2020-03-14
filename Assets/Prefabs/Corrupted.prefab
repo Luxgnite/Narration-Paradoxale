@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 7966110003314007243}
   - component: {fileID: 7966110003314007237}
   - component: {fileID: 7966110003314007242}
+  - component: {fileID: -337919847172188389}
+  - component: {fileID: -643620053416457299}
   m_Layer: 0
   m_Name: Corrupted
-  m_TagString: Untagged
+  m_TagString: Corrupted
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,3 +168,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-337919847172188389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7966110003314007247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce90c065bab0d84192ab28a3d94b772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-643620053416457299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7966110003314007247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47535272baa0ad34f9e19fd3ae8e15af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayText: Qu'est-ce que... Qu'est-ce que c'est que cette chose ?!
+  timeToDie: 5

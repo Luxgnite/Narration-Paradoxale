@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New FileSync", menuName = "FileSync")]
 public class FileSync : ScriptableObject
 {
+    public enum Type {Enemy, Item};
+    public Type type;
     protected bool isExisting = true;
     public bool isCorrupted = false;
     public string path = "";
@@ -52,9 +54,10 @@ public class FileSync : ScriptableObject
 
     public virtual void Synchronize()
     {
-        if (isExisting)
+        Debug.Log("Synchronizing " + fileName);
+        if (isExisting && GameManager._instance.actualPath == this.Path)
             GameManager._instance.CreateObjectToSynchronize(this);
-        else if (!isExisting)
+        else
             GameManager._instance.DestroyObjectToSynchronize(this);
     }
 }

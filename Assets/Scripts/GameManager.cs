@@ -151,11 +151,29 @@ public class GameManager : MonoBehaviour
 
             if (syncTable[fileToSync] == null)
             {
+                GameObject instance = null;
                 if (fileToSync.prefab.tag != "Player")
                 {
-                    GameObject instance = Instantiate(fileToSync.prefab, 
-                        GameObject.FindGameObjectWithTag("Spawner").transform.position, 
+                    switch (fileToSync.type)
+                    {
+                        case FileSync.Type.Enemy:
+                                instance = Instantiate(fileToSync.prefab,
+                        GameObject.FindGameObjectWithTag("Spawner").transform.position,
                         Quaternion.identity);
+                            break;
+
+                        case FileSync.Type.Item:
+                            instance = Instantiate(fileToSync.prefab,
+                        GameObject.FindGameObjectWithTag("Table").transform.position,
+                        Quaternion.identity);
+                            break;
+
+                        default:
+                            instance = Instantiate(fileToSync.prefab,
+                        GameObject.FindGameObjectWithTag("Spawner").transform.position,
+                        Quaternion.identity);
+                            break;
+                    }
                     objectsToSynchronize.Add(instance);
 
                     syncTable[fileToSync] = instance;
@@ -164,7 +182,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (fileToSync.prefab.tag == "Player")
                 {
-                    GameObject instance = Instantiate(fileToSync.prefab);
+                    instance = Instantiate(fileToSync.prefab);
                     objectsToSynchronize.Add(instance);
 
                     syncTable[fileToSync] = instance;

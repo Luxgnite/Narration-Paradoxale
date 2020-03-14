@@ -65,6 +65,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 604211fdced3fc349bf3acc0cf0fc2c8, type: 2}
   - {fileID: 11400000, guid: 48af4c0917354c14ba7172f17fdaa0b2, type: 2}
   - {fileID: 11400000, guid: ff38e383f0b82264ea25761552c26f89, type: 2}
+  - {fileID: 11400000, guid: c6ca9aeed605aee4e8c57e9a09f0b2d9, type: 2}
   scenesToSynchronize:
   - {fileID: 11400000, guid: fc69452a34ad89d41b69cb0fc5323c21, type: 2}
   - {fileID: 11400000, guid: db9d5c72167cd714a941c75ca3982346, type: 2}

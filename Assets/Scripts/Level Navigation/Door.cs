@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Door : MonoBehaviour
 {
+    [Range(1, 10f)]
+    public float interactionRange = 1f;
+
     public SceneSync sceneSync;
     private SpriteRenderer sprite;
     private new Collider2D collider;
@@ -59,7 +62,13 @@ public class Door : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameManager._instance.fgm.MovePlayerFile(sceneSync.Path);
+        if(Mathf.Abs(
+            GameObject.FindGameObjectWithTag("Player").transform.position.x 
+            - this.transform.position.x
+            ) <= interactionRange)
+        {
+            GameManager._instance.fgm.MovePlayerFile(sceneSync.Path);
+        }
     }
 
     private void OnDestroy()
