@@ -30,7 +30,11 @@ public class MessageManager : MonoBehaviour
     private void InitReferences()
     {
         if (messageCanvas == null)
-            messageCanvas = GameObject.Find("MessageCanvas").GetComponent<Canvas>();
+        {
+            messageCanvas = GameObject.Find("MessageCanvas") != null ?
+                GameObject.Find("MessageCanvas").GetComponent<Canvas>()
+                : null;
+        }
 
         if (played == null)
             played = GameObject.FindGameObjectWithTag("Player");

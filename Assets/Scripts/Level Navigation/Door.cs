@@ -60,12 +60,21 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    private bool IsInRange()
     {
-        if(Mathf.Abs(
-            GameObject.FindGameObjectWithTag("Player").transform.position.x 
+        if (Mathf.Abs(
+            GameObject.FindGameObjectWithTag("Player").transform.position.x
             - this.transform.position.x
             ) <= interactionRange)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void OnMouseDown()
+    {
+        if(IsInRange())
         {
             GameManager._instance.fgm.MovePlayerFile(sceneSync.Path);
         }
@@ -76,4 +85,18 @@ public class Door : MonoBehaviour
         EventManager.Synchronize -= OnSynchronize;
         EventManager.SynchronizeFolders -= OnSynchronize;
     }
+
+    private void OnMouseOver()
+    {
+        if(IsInRange())
+            Cursor.SetCursor(GameManager._instance.exitHoverCursor, Vector2.zero, CursorMode.Auto);
+        else
+            Cursor.SetCursor(GameManager._instance.defaultCursor, Vector2.zero, CursorMode.Auto);
+    }
+
+    private void OnMouseExit()
+    {
+        Cursor.SetCursor(GameManager._instance.defaultCursor, Vector2.zero, CursorMode.Auto);
+    }
+
 }

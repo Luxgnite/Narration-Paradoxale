@@ -6,11 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New FileSync", menuName = "FileSync")]
 public class FileSync : ScriptableObject
 {
-    public enum Type {Enemy, Item};
+    public enum Type {Enemy, Item, Player};
     public Type type;
     protected bool isExisting = true;
     public bool isCorrupted = false;
-    public string path = "";
+    protected string path = "";
     public GameObject prefab;
     public string fileName = "";
 
@@ -37,6 +37,7 @@ public class FileSync : ScriptableObject
                 isExisting = false;
             else
                 isExisting = true;
+            GameManager._instance.syncQueue.Enqueue(this);
         }
     }
 

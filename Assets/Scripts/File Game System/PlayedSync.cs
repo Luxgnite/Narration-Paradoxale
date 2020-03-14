@@ -6,6 +6,9 @@ using System.IO;
 [CreateAssetMenu(fileName = "New PlayedSync", menuName = "PlayedSync")]
 public class PlayedSync : FileSync
 {
+    public GameObject prefabCorrupted;
+    public string fileNameCorrupted;
+
     public override void Synchronize()
     {
         if (isExisting && GameManager._instance.actualPath != this.Path)
@@ -24,4 +27,5 @@ public class PlayedSync : FileSync
         }
             
     }
+
 }

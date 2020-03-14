@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c472a8ddd3080c649a9f0baaf318e3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yRangeFromTarget: 0.5
+  yRangeFromTarget: 1
   target: {fileID: 0}
   timeToDie: 5
   displayText: ...

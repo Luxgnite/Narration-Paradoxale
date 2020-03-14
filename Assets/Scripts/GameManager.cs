@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     public Dictionary<FileSync, GameObject> syncTable;
     public List<FileSync> filesToSynchronize;
     public List<SceneSync> scenesToSynchronize;
+
+    public Texture2D defaultCursor;
+    public Texture2D interactibleHoverCursor;
+    public Texture2D exitHoverCursor;
+
     public FileGameManager fgm;
 
     public string actualPath = "";
@@ -23,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public Queue<FileSync> syncQueue = new Queue<FileSync>();
     private object _queueLock = new object();
+
+    public bool startIsDone = false;
 
     void Awake()
     {
@@ -36,11 +43,12 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        fgm = new FileGameManager();
-        actualPath = "\\";
+        actualPath = "";
         syncTable = new Dictionary<FileSync, GameObject>();
         objectsToSynchronize = new List<GameObject>();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        fgm = new FileGameManager();
     }
 
     void Start()
@@ -74,9 +82,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Dequeuing...");
 
                 FileSync obj = syncQueue.Dequeue();
-                Debug.Log(obj.fileName + " path is now " + obj.Path);
                 obj.Synchronize();
-                ClearOldRef();
             }
         }
     }
@@ -87,27 +93,24 @@ public class GameManager : MonoBehaviour
         {
             oldPath = actualPath;
             actualPath = scene.Path;
+            Debug.Log("Changing to scene " + scene.sceneName);
             SceneManager.LoadSceneAsync(scene.sceneName);
         }
         catch (Exception e)
         {
             if (scene.sceneName == null)
-                Debug.Log("Couldn't load scene because sceneToLoad is undefined!");
+                Debug.LogError("Couldn't load scene because sceneToLoad is undefined!");
+            else if (SceneManager.GetSceneByName(scene.sceneName) != null)
+                Debug.LogError("Couldn't load scene because"+ scene.sceneName + " doesn't exist!");
             else
-                Debug.Log("Couldn't load scene " + scene.sceneName);
+                Debug.LogError("Couldn't load scene " + scene.sceneName);
         }
     }
 
     public void SynchronizeAll()
     {
         EventManager.Synchronization();
-        for(int i = 0; i< objectsToSynchronize.Count; i++)
-        {
-            if(objectsToSynchronize[i] == null)
-            {
-                objectsToSynchronize.RemoveAt(i);
-            }
-        }
+        ClearOldRef();
     }
 
     public FileSync SearchFileSync(string fileSyncName)
@@ -157,11 +160,11 @@ public class GameManager : MonoBehaviour
 
     public void CreateObjectToSynchronize(FileSync fileToSync)
     {
-        if(actualPath == fileToSync.path)
+        if(actualPath == fileToSync.Path)
         {
             Debug.Log("Creating object to synchronize...");
 
-            if (syncTable[fileToSync] == null)
+            if (syncTable.ContainsKey(fileToSync) && syncTable[fileToSync] == null)
             {
                 GameObject instance = null;
                 if (fileToSync.prefab.tag != "Player")
@@ -191,27 +194,33 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
                     GameObject doorSpawn = null;
-                    foreach(GameObject door in doors)
+                    foreach (GameObject door in doors)
                     {
-                        if (door.GetComponent<Door>().sceneSync != null && 
+                        if (door.GetComponent<Door>().sceneSync != null &&
                             door.GetComponent<Door>().sceneSync.sceneName == System.IO.Path.GetFileName(oldPath))
                         {
                             doorSpawn = door;
                         }
-                            
+
                     }
-                    if(doorSpawn != null)
+
+                    if (!startIsDone)
+                        doorSpawn = GameObject.FindGameObjectWithTag("Respawn");
+
+                    if (doorSpawn != null)
                         instance = Instantiate(fileToSync.prefab,
                             new Vector3(doorSpawn.transform.position.x,
                             doorSpawn.transform.position.y - 2f,
                             fileToSync.prefab.transform.position.z),
                             Quaternion.identity);
-                    else
+                    else if (doors.Length != 0)
                         instance = Instantiate(fileToSync.prefab,
                             new Vector3(doors[0].transform.position.x,
                             doors[0].transform.position.y - 2f,
                             fileToSync.prefab.transform.position.z),
                             Quaternion.identity);
+                    else
+                        instance = Instantiate(fileToSync.prefab);
                 }
                 objectsToSynchronize.Add(instance);
                 syncTable[fileToSync] = instance;
@@ -223,7 +232,8 @@ public class GameManager : MonoBehaviour
 
     public void DestroyObjectToSynchronize(FileSync fileToSync)
     {
-        if (syncTable[fileToSync] != null)
+        ClearOldRef();
+        if (syncTable.ContainsKey(fileToSync) && syncTable[fileToSync] != null)
         {
             GameObject instance = new GameObject();
 
@@ -238,7 +248,8 @@ public class GameManager : MonoBehaviour
             }
 
             syncTable[fileToSync] = null;
-            DestroyImmediate(instance);
+            Destroy(instance);
+            ClearOldRef();
         }
     }
 

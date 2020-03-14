@@ -24,12 +24,12 @@ public class EventManager : MonoBehaviour
 
     public static void Synchronization()
     {
-        Synchronize();
+        Synchronize?.Invoke();
     }
 
     public static void SyncFolders()
     {
         Debug.Log("Sync folders..");
-        SynchronizeFolders();
+        SynchronizeFolders?.Invoke();
     }
 }

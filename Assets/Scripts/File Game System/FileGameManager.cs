@@ -223,6 +223,20 @@ public class FileGameManager
     {
         //On génère la racine
         fileManager = new FileManager("ROOT");
+
+        foreach (SceneSync scene in GameManager._instance.scenesToSynchronize)
+        {
+            DirectoryInfo[] location = fileManager.SearchDirectory(scene.sceneName);
+            if (location != null)
+            {
+                string path = fileManager.RelativePath(location[0].FullName);
+                if (path == "") { scene.Path = "\\"; } else { scene.Path = path; }
+                Debug.Log(scene.sceneName + " path is now " + scene.Path);
+            }
+            else
+                scene.Path = "";
+        }
+        
         foreach(FileSync file in GameManager._instance.filesToSynchronize)
         {
             FileInfo[] location = fileManager.SearchFile(file.fileName);
@@ -235,21 +249,6 @@ public class FileGameManager
             else
                 file.Path = "";
         }
-
-        foreach (SceneSync scene in GameManager._instance.scenesToSynchronize)
-        {
-            DirectoryInfo[] location = fileManager.SearchDirectory(scene.sceneName);
-            if (location != null)
-            {
-                string path = fileManager.RelativePath(location[0].FullName);
-                if(path == "") { scene.Path = "\\"; } else { scene.Path = path; }
-                Debug.Log(scene.sceneName + " path is now " + scene.Path);
-            }
-            else
-                scene.Path = "";
-        }
-
-
     }
 
     public void MovePlayerFile(string newPath)
