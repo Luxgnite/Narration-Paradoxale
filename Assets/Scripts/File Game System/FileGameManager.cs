@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Text.RegularExpressions;
 using System;
+using System.Text;
 
 public class FileManager
 {
@@ -115,6 +116,13 @@ public class FileManager
         FileInfo file = SearchFile(fileName)[0];
         Debug.Log("Moving " + file.FullName + " to " + AbsolutePath(newPath));
         File.Move(file.FullName, AbsolutePath(newPath) + "\\" + fileName);
+    }
+
+    public void Replace(string fileName, string newFile)
+    {
+        FileInfo file = SearchFile(fileName)[0];
+        File.Copy("CORRUPTED\\" + newFile, Path.GetDirectoryName(file.FullName) + "\\" + newFile);
+        File.Delete(file.FullName);
     }
 
     public void Copy(string sourceDirectory, string targetDirectory)

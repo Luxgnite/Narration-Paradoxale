@@ -39,4 +39,14 @@ public class CorruptedController : MonoBehaviour
             spriteRenderer.flipX = false;
 
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Collision with player");
+            PlayedSync file = (PlayedSync) GameManager._instance.SearchFileSync("character.txt");
+            file.IsCorrupted = true;
+        }
+    }
 }

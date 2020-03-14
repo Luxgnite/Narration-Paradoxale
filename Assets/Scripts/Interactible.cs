@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(MessageData))]
@@ -17,7 +17,29 @@ public class Interactible : MonoBehaviour
 
     protected virtual void OnMouseDown()
     {
-        MessageManager._instance.ShowMessage(messageData.displayText, messageData.timeToDie);
+        if(!messageData.dataFromFile)
+            MessageManager._instance.ShowMessage(messageData.displayText, messageData.timeToDie);
+        else
+        {
+            string message = "Je ne peux pas lire.";
+            FileInfo file = null;
+            
+            foreach (KeyValuePair<FileSync, GameObject> entry in GameManager._instance.syncTable)
+            {
+                if(entry.Value == this.gameObject)
+                {
+                    file = GameManager._instance.fgm.fileManager.SearchFile(entry.Key.fileName)[0];
+                    break;
+                }
+            }
+
+            StreamReader reader = new StreamReader(file.FullName);
+
+            message = reader.ReadToEnd();
+            reader.Close();
+
+            MessageManager._instance.ShowMessage(message, messageData.timeToDie);
+        }
     }
 
     protected virtual void OnMouseEnter()

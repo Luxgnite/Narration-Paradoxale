@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Start : MonoBehaviour
 {
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         GameManager._instance.startIsDone = true;
     }

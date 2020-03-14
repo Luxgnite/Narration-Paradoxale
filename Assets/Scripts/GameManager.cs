@@ -119,7 +119,6 @@ public class GameManager : MonoBehaviour
         {
             if (fileSyncName == obj.fileName)
                 return obj;
-
         }
 
         return null;

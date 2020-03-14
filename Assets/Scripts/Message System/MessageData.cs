@@ -6,4 +6,5 @@ public class MessageData : MonoBehaviour
 {
     public string displayText;
     public float timeToDie = 5f;
+    public bool dataFromFile = false;
 }

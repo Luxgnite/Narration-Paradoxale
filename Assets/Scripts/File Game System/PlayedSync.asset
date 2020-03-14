@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: PlayedSync
   m_EditorClassIdentifier: 
   type: 2
-  isCorrupted: 0
+  isCorrupted: 1
   prefab: {fileID: 7505236953358627895, guid: 8f7d63a32ce2dcc468da5554643cb577, type: 3}
   fileName: character.txt
-  prefabCorrupted: {fileID: 0}
-  fileNameCorrupted: 
+  prefabCorrupted: {fileID: 6924443634846298898, guid: d5b51eea7001f9240a27ded95ac5b68e,
+    type: 3}
+  fileNameCorrupted: "\u2588T-\u256CZZ\xF7\u2593\xFE4\xCF"
