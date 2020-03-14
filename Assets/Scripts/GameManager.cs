@@ -195,6 +195,11 @@ public class GameManager : MonoBehaviour
                     GameObject doorSpawn = null;
                     foreach (GameObject door in doors)
                     {
+                        if (door.GetComponent<Door>().sceneSync != null)
+                        { Debug.Log("LOL" + door.GetComponent<Door>().sceneSync.sceneName);
+                            Debug.Log("LOL 1" + System.IO.Path.GetFileName(oldPath));
+                            Debug.Log(door.GetComponent<Door>().sceneSync.sceneName == System.IO.Path.GetFileName(oldPath));
+                        }
                         if (door.GetComponent<Door>().sceneSync != null &&
                             door.GetComponent<Door>().sceneSync.sceneName == System.IO.Path.GetFileName(oldPath))
                         {
@@ -203,7 +208,7 @@ public class GameManager : MonoBehaviour
 
                     }
 
-                    if (!startIsDone)
+                    if (!startIsDone && GameObject.FindGameObjectWithTag("Respawn") != null)
                         doorSpawn = GameObject.FindGameObjectWithTag("Respawn");
 
                     if (doorSpawn != null)

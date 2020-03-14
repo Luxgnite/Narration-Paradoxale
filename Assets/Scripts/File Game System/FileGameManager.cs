@@ -34,7 +34,7 @@ public class FileManager
 
         if (Directory.Exists(RootFullPath))
             Directory.Delete(RootFullPath, true);
-        Copy("ROOT", desktopPath + "\\ROOT");
+        Copy("GAMESFILES\\ROOT", desktopPath + "\\ROOT");
 
     }
 
@@ -121,7 +121,7 @@ public class FileManager
     public void Replace(string fileName, string newFile)
     {
         FileInfo file = SearchFile(fileName)[0];
-        File.Copy("CORRUPTED\\" + newFile, Path.GetDirectoryName(file.FullName) + "\\" + newFile);
+        File.Copy("GAMESFILES\\CORRUPTED\\" + newFile, Path.GetDirectoryName(file.FullName) + "\\" + newFile);
         File.Delete(file.FullName);
     }
 

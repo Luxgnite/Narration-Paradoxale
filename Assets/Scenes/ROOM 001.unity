@@ -758,7 +758,7 @@ Transform:
   - {fileID: 403259421}
   - {fileID: 1924032675}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &872332255
 GameObject:
@@ -1277,6 +1277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayText: "\"Il y avait une porte ici. Elle n'est plus l\xE0 maintenant.\""
   timeToDie: 5
+  dataFromFile: 0
 --- !u!61 &1594530449
 BoxCollider2D:
   m_ObjectHideFlags: 0

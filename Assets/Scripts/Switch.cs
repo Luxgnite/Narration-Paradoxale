@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Switch : Interactible
 {
-    public GameObject objectToToggle;
+    public List<GameObject> objectToToggle = new List<GameObject>();
 
     protected override void OnMouseDown()
     {
-        if (objectToToggle.activeInHierarchy)
-            objectToToggle.SetActive(false);
-        else
-            objectToToggle.SetActive(true);
+        foreach(GameObject obj in objectToToggle)
+        {
+            if (obj.activeInHierarchy)
+                obj.SetActive(false);
+            else
+                obj.SetActive(true);
+        }
     }
 }
