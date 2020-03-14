@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     private object _queueLock = new object();
 
     public bool startIsDone = false;
+    public float transitionTime = 1f;
 
     void Awake()
     {
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
             oldPath = actualPath;
             actualPath = scene.Path;
             Debug.Log("Changing to scene " + scene.sceneName);
-            SceneManager.LoadSceneAsync(scene.sceneName);
+            StartCoroutine(LoadLevel(scene.sceneName));
         }
         catch (Exception e)
         {
@@ -105,6 +106,15 @@ public class GameManager : MonoBehaviour
             else
                 Debug.LogError("Couldn't load scene " + scene.sceneName);
         }
+    }
+
+    IEnumerator LoadLevel(string sceneName)
+    {
+        GameObject.Find("FADE").GetComponent<Animator>().SetTrigger("ChangeScene");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadSceneAsync(sceneName);
     }
 
     public void SynchronizeAll()
