@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,8 +18,8 @@ public class GameManager : MonoBehaviour
     public List<SceneSync> scenesToSynchronize;
     public FileGameManager fgm;
 
-    public string actualPath;
-    public string oldPath;
+    public string actualPath = "";
+    public string oldPath = "";
 
     public Queue<FileSync> syncQueue = new Queue<FileSync>();
     private object _queueLock = new object();
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
                 FileSync obj = syncQueue.Dequeue();
                 Debug.Log(obj.fileName + " path is now " + obj.Path);
                 obj.Synchronize();
+                ClearOldRef();
             }
         }
     }
@@ -83,6 +85,7 @@ public class GameManager : MonoBehaviour
     {
         try
         {
+            oldPath = actualPath;
             actualPath = scene.Path;
             SceneManager.LoadSceneAsync(scene.sceneName);
         }
@@ -143,6 +146,15 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
+    private void ClearOldRef()
+    {
+        for(int i = 0; i<objectsToSynchronize.Count; i++)
+        {
+            if (objectsToSynchronize[i] == null)
+                objectsToSynchronize.RemoveAt(i);
+        }
+    }
+
     public void CreateObjectToSynchronize(FileSync fileToSync)
     {
         if(actualPath == fileToSync.path)
@@ -174,21 +186,37 @@ public class GameManager : MonoBehaviour
                         Quaternion.identity);
                             break;
                     }
-                    objectsToSynchronize.Add(instance);
-
-                    syncTable[fileToSync] = instance;
-
-                    Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
                 }
                 else if (fileToSync.prefab.tag == "Player")
                 {
-                    instance = Instantiate(fileToSync.prefab);
-                    objectsToSynchronize.Add(instance);
-
-                    syncTable[fileToSync] = instance;
-
-                    Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
+                    GameObject[] doors = GameObject.FindGameObjectsWithTag("Door");
+                    GameObject doorSpawn = null;
+                    foreach(GameObject door in doors)
+                    {
+                        if (door.GetComponent<Door>().sceneSync != null && 
+                            door.GetComponent<Door>().sceneSync.sceneName == System.IO.Path.GetFileName(oldPath))
+                        {
+                            doorSpawn = door;
+                        }
+                            
+                    }
+                    if(doorSpawn != null)
+                        instance = Instantiate(fileToSync.prefab,
+                            new Vector3(doorSpawn.transform.position.x,
+                            doorSpawn.transform.position.y - 2f,
+                            fileToSync.prefab.transform.position.z),
+                            Quaternion.identity);
+                    else
+                        instance = Instantiate(fileToSync.prefab,
+                            new Vector3(doors[0].transform.position.x,
+                            doors[0].transform.position.y - 2f,
+                            fileToSync.prefab.transform.position.z),
+                            Quaternion.identity);
                 }
+                objectsToSynchronize.Add(instance);
+                syncTable[fileToSync] = instance;
+
+                Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
             }
         }
     }
@@ -209,8 +237,8 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            DestroyImmediate(instance);
             syncTable[fileToSync] = null;
+            DestroyImmediate(instance);
         }
     }
 

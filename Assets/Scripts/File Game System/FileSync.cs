@@ -55,6 +55,7 @@ public class FileSync : ScriptableObject
     public virtual void Synchronize()
     {
         Debug.Log("Synchronizing " + fileName);
+        Debug.Log("Path is " + this.Path);
         if (isExisting && GameManager._instance.actualPath == this.Path)
             GameManager._instance.CreateObjectToSynchronize(this);
         else
