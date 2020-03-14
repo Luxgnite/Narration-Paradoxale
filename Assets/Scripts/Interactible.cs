@@ -38,7 +38,7 @@ public class Interactible : MonoBehaviour
             message = reader.ReadToEnd();
             reader.Close();
 
-            MessageManager._instance.ShowMessage(message, messageData.timeToDie);
+            MessageManager._instance.ShowMessage("\"" + message + "\"", messageData.timeToDie);
         }
     }
 

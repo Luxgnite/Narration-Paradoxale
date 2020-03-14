@@ -272,6 +272,36 @@ public class FileGameManager
     private void OnCreated(object source, FileSystemEventArgs e)
     {
         Debug.Log($"File: {e.FullPath} {e.ChangeType}");
+        if (!Path.GetExtension(e.FullPath).Equals(""))
+        {
+            FileInfo[] copy = fileManager.SearchFile(Path.GetFileName(e.FullPath));
+
+            FileSync obj = GameManager._instance.SearchFileSync(Path.GetFileName(e.FullPath));
+            if (obj != null)
+            {
+                if (copy == null)
+                {
+                    obj.Path = "";
+                    GameManager._instance.syncQueue.Enqueue(obj);
+                }
+                else
+                {
+                    obj.Path = fileManager.RelativePath(copy[0].DirectoryName);
+                    GameManager._instance.syncQueue.Enqueue(obj);
+                }
+            }
+        }
+        else
+        {
+            SceneSync folder = GameManager._instance.SearchSceneSync(Path.GetFileName(e.FullPath));
+            if (folder != null)
+            {
+                Debug.Log("Changing scene " + folder.sceneName + " parameters");
+                DirectoryInfo[] folderLocation = fileManager.SearchDirectory(folder.sceneName);
+                folder.Path = folderLocation == null ? "" : fileManager.RelativePath(folderLocation[0].FullName) ;
+                EventManager.SyncFolders();
+            }
+        }
     }
 
     private void OnDeleted(object source, FileSystemEventArgs e)
