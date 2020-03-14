@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public FileGameManager fgm;
 
     public string actualPath;
+    public string oldPath;
 
     public Queue<FileSync> syncQueue = new Queue<FileSync>();
     private object _queueLock = new object();
@@ -147,14 +148,29 @@ public class GameManager : MonoBehaviour
         if(actualPath == fileToSync.path)
         {
             Debug.Log("Creating object to synchronize...");
+
             if (syncTable[fileToSync] == null)
             {
-                GameObject instance = Instantiate(fileToSync.prefab);
-                objectsToSynchronize.Add(instance);
+                if (fileToSync.prefab.tag != "Player")
+                {
+                    GameObject instance = Instantiate(fileToSync.prefab, 
+                        GameObject.FindGameObjectWithTag("Spawner").transform.position, 
+                        Quaternion.identity);
+                    objectsToSynchronize.Add(instance);
 
-                syncTable[fileToSync] = instance;
+                    syncTable[fileToSync] = instance;
 
-                Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
+                    Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
+                }
+                else if (fileToSync.prefab.tag == "Player")
+                {
+                    GameObject instance = Instantiate(fileToSync.prefab);
+                    objectsToSynchronize.Add(instance);
+
+                    syncTable[fileToSync] = instance;
+
+                    Debug.Log("Instantiated GameObject " + syncTable[fileToSync]);
+                }
             }
         }
     }

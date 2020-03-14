@@ -225,10 +225,10 @@ public class FileGameManager
         fileManager = new FileManager("ROOT");
         foreach(FileSync file in GameManager._instance.filesToSynchronize)
         {
-            FileInfo location = fileManager.SearchFile(file.fileName)[0];
+            FileInfo[] location = fileManager.SearchFile(file.fileName);
             if (location != null)
             {
-                string path = Path.GetDirectoryName(fileManager.RelativePath(location.FullName));
+                string path = Path.GetDirectoryName(fileManager.RelativePath(location[0].FullName));
                 if (path == "") { file.Path = "\\"; } else { file.Path = path; }
                 Debug.Log(file.fileName + " path is now " + file.Path);
             }
@@ -238,10 +238,10 @@ public class FileGameManager
 
         foreach (SceneSync scene in GameManager._instance.scenesToSynchronize)
         {
-            DirectoryInfo location = fileManager.SearchDirectory(scene.sceneName)[0];
+            DirectoryInfo[] location = fileManager.SearchDirectory(scene.sceneName);
             if (location != null)
             {
-                string path = fileManager.RelativePath(location.FullName);
+                string path = fileManager.RelativePath(location[0].FullName);
                 if(path == "") { scene.Path = "\\"; } else { scene.Path = path; }
                 Debug.Log(scene.sceneName + " path is now " + scene.Path);
             }

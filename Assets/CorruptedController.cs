@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-
-public class MovementController : MonoBehaviour
+public class CorruptedController : MonoBehaviour
 {
     [Range(1, 10)]
     public float velocity = 1;
+    [Range(1, 20)]
+    public float aggroRadius = 5;
 
     private Animator animator;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private GameObject played;
 
     private void Awake()
     {
@@ -20,20 +21,22 @@ public class MovementController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        played = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        rb.velocity = Vector2.right * Input.GetAxis("Horizontal") * velocity;
+        float playerDistance = played.transform.position.x - this.transform.position.x;
+        rb.velocity = Vector2.right * (Mathf.Abs(playerDistance) < aggroRadius ?  Mathf.Sign(playerDistance) : 0) * velocity;
+
         animator.SetFloat("speedX", Mathf.Abs(rb.velocity.x));
         if (rb.velocity.x < 0)
             spriteRenderer.flipX = true;
-        else if(rb.velocity.x > 0)
+        else if (rb.velocity.x > 0)
             spriteRenderer.flipX = false;
+
     }
 }

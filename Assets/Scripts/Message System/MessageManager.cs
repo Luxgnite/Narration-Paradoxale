@@ -8,8 +8,8 @@ public class MessageManager : MonoBehaviour
 
     public Canvas messageCanvas;
     public Message messagePrefab;
-
     public Message actualMessage;
+    private GameObject played;
 
     private void Start()
     {
@@ -19,6 +19,21 @@ public class MessageManager : MonoBehaviour
         else if (_instance != this)
             Destroy(this.gameObject);
 
+        InitReferences();
+    }
+
+    private void FixedUpdate()
+    {
+        InitReferences();
+    }
+
+    private void InitReferences()
+    {
+        if (messageCanvas == null)
+            messageCanvas = GameObject.Find("MessageCanvas").GetComponent<Canvas>();
+
+        if (played == null)
+            played = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void ShowMessage(string message = "...", float timeToDie = 5f)
@@ -29,7 +44,7 @@ public class MessageManager : MonoBehaviour
         actualMessage.gameObject.transform.SetParent(messageCanvas.transform, false);
 
         actualMessage.displayText = message;
-        actualMessage.target = GameManager._instance.played;
+        actualMessage.target = played;
         actualMessage.timeToDie = timeToDie;
     }
 

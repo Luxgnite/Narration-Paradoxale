@@ -39,7 +39,7 @@ public class Door : MonoBehaviour
 
     private void SyncDoorState()
     {
-        if (!sceneSync.IsExisting)
+        if (sceneSync == null ||!sceneSync.IsExisting)
         {
             collider.enabled = false;
             if (altSprite != null)
