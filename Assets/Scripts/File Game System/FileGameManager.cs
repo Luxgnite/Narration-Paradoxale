@@ -298,7 +298,7 @@ public class FileGameManager
             {
                 Debug.Log("Changing scene " + folder.sceneName + " parameters");
                 DirectoryInfo[] folderLocation = fileManager.SearchDirectory(folder.sceneName);
-                folder.Path = folderLocation == null ? "" : fileManager.RelativePath(folderLocation[0].FullName) ;
+                folder.Path = (folderLocation == null ? "" : fileManager.RelativePath(folderLocation[0].FullName));
                 EventManager.SyncFolders();
             }
         }

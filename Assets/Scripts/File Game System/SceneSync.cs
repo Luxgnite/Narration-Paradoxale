@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New SceneSync", menuName = "SceneSync")]
 public class SceneSync : ScriptableObject
 {
-    private bool isExisting = true;
+    private bool isExisting = false;
     private string path = "";
     public string originalPath = "";
     public string sceneName = "";
@@ -28,8 +28,7 @@ public class SceneSync : ScriptableObject
                 isExisting = false;
             else
                 isExisting = true;
-
-            EventManager.SyncFolders();
+            Debug.Log(sceneName + " isExisting " + isExisting);
         }
     }
 }

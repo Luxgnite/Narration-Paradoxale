@@ -99,10 +99,12 @@ public class GameManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            if (scene.sceneName == null)
+            if (scene == null)
+                Debug.LogError("Couldn't load scene because parameter was null");
+            else if (scene.sceneName == null)
                 Debug.LogError("Couldn't load scene because sceneToLoad is undefined!");
             else if (SceneManager.GetSceneByName(scene.sceneName) != null)
-                Debug.LogError("Couldn't load scene because"+ scene.sceneName + " doesn't exist!");
+                Debug.LogError("Couldn't load scene because" + scene.sceneName + " doesn't exist!");
             else
                 Debug.LogError("Couldn't load scene " + scene.sceneName);
         }
@@ -205,17 +207,12 @@ public class GameManager : MonoBehaviour
                     GameObject doorSpawn = null;
                     foreach (GameObject door in doors)
                     {
-                        if (door.GetComponent<Door>().sceneSync != null)
-                        { Debug.Log("LOL" + door.GetComponent<Door>().sceneSync.sceneName);
-                            Debug.Log("LOL 1" + System.IO.Path.GetFileName(oldPath));
-                            Debug.Log(door.GetComponent<Door>().sceneSync.sceneName == System.IO.Path.GetFileName(oldPath));
-                        }
-                        if (door.GetComponent<Door>().sceneSync != null &&
-                            door.GetComponent<Door>().sceneSync.sceneName == System.IO.Path.GetFileName(oldPath))
+                        if (door.GetComponent<Door>() != null 
+                            && door.GetComponent<Door>().sceneSync != null 
+                            && door.GetComponent<Door>().sceneSync.sceneName == System.IO.Path.GetFileName(oldPath))
                         {
                             doorSpawn = door;
                         }
-
                     }
 
                     if (!startIsDone && GameObject.FindGameObjectWithTag("Respawn") != null)

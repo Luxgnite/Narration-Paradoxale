@@ -40,7 +40,6 @@ public class MessageManager : MonoBehaviour
             played = GameObject.FindGameObjectWithTag("Player");
     }
 
-
     public void ShowMessage(string message = "...", float timeToDie = 5f)
     {
         DestroyActualMessage();

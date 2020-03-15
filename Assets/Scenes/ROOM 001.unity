@@ -886,6 +886,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: f300786e1bd83cb45bdee73feb34fe4f,
         type: 3}
+    - target: {fileID: 1972469040142980172, guid: fc987a7bcccbbf4418506e75ae2ea0cf,
+        type: 3}
+      propertyPath: sceneSync
+      value: 
+      objectReference: {fileID: 11400000, guid: 5443bb35454644b45af0496a0faf6264,
+        type: 2}
     - target: {fileID: 2019282536682247501, guid: fc987a7bcccbbf4418506e75ae2ea0cf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -941,12 +947,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5061499852118097087, guid: fc987a7bcccbbf4418506e75ae2ea0cf,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f300786e1bd83cb45bdee73feb34fe4f,
+        type: 3}
     - target: {fileID: 7936230308070812759, guid: fc987a7bcccbbf4418506e75ae2ea0cf,
         type: 3}
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7936230308070812759, guid: fc987a7bcccbbf4418506e75ae2ea0cf,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1972469040142980172, guid: fc987a7bcccbbf4418506e75ae2ea0cf, type: 3}
+    - {fileID: 171059729452328986, guid: fc987a7bcccbbf4418506e75ae2ea0cf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fc987a7bcccbbf4418506e75ae2ea0cf, type: 3}
 --- !u!1001 &1099981915
 PrefabInstance:
