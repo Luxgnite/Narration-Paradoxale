@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{1B7EC19C-C000-4FB0-B340-72335D1AC5FE}" SchemaVersion="97">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{1B7EC19C-C000-4FB0-B340-72335D1AC5FE}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Door" ID="{92D244ED-0F65-4565-829E-613E6C5AA813}">
+					<ChildrenList>
+						<Action Name="" ID="{4C71A31E-7385-4F3F-B58F-969F13CD66BF}" ShortID="341301745">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Door" ID="{9AAF7676-D97D-47C9-B019-084A1A1F6FCE}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Switch" ID="{A076E1D0-D4AE-47BC-9E34-CCECD15E4BE4}">
+					<ChildrenList>
+						<Action Name="" ID="{EB5BA5C6-2595-412E-821B-B210360C3F9F}" ShortID="300035889">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Switch" ID="{7876DA4A-1192-4634-9E04-E724E0BD4A10}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Enemy" ID="{B63FC6F4-344C-48F8-AC60-77D3D4618D53}">
+					<ChildrenList>
+						<Action Name="" ID="{01842D76-4CD7-4D57-A4F4-0BFAC939BC88}" ShortID="1001253620">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Monster" ID="{F7E2EE1E-A4C0-4010-A6EA-639BE57C4C32}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Monster__Death" ID="{0AA25C0B-F785-421D-900C-3EB24DFD8492}">
+					<ChildrenList>
+						<Action Name="" ID="{92DE9FEE-0ACB-494B-9FC4-0BBEF80F5481}" ShortID="468930845">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Monster" ID="{F7E2EE1E-A4C0-4010-A6EA-639BE57C4C32}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Monster" ID="{5AF0523F-DB86-4FD6-B089-9E5538230611}">
+					<ChildrenList>
+						<Action Name="" ID="{D1CC77DF-10E8-414A-B176-DCF73D007DF0}" ShortID="599331335">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Monster" ID="{F7E2EE1E-A4C0-4010-A6EA-639BE57C4C32}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_Music" ID="{D3F34856-89EE-4529-B5D7-CC66AF234B66}">
+					<ChildrenList>
+						<Action Name="" ID="{14C2E5DF-4DC4-4B71-A045-4199C28D2282}" ShortID="368254746">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="soundscape_routt" ID="{05BF3A52-B3F6-4277-BBE4-4FEAB1930161}" WorkUnitID="{81DA9744-CAF4-4E97-AC84-35CF2CA943CD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_Music" ID="{995FF5DE-ED33-4D8A-B0F4-6A4D866E6CED}">
+					<ChildrenList>
+						<Action Name="" ID="{375BC2BC-6E62-4476-98AF-93AF48F0509A}" ShortID="158989925">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="soundscape_routt" ID="{05BF3A52-B3F6-4277-BBE4-4FEAB1930161}" WorkUnitID="{81DA9744-CAF4-4E97-AC84-35CF2CA943CD}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Ventilation_Play" ID="{12ABD195-A886-457D-B43A-5F0341E394D5}">
+					<ChildrenList>
+						<Action Name="" ID="{853E274A-0A0C-4783-A870-72AE5022282F}" ShortID="167922798">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Ventilation Fan Drone 3" ID="{0C994594-4D03-4DA5-89CA-2138A6C21B13}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Ventilation_Stop" ID="{63B094ED-8E4A-4551-BB90-9E2681F551AD}">
+					<ChildrenList>
+						<Action Name="" ID="{79185882-2349-44D1-9471-F870BFEC838C}" ShortID="511643552">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Ventilation Fan Drone 3" ID="{0C994594-4D03-4DA5-89CA-2138A6C21B13}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="End" ID="{2B367D33-B170-4F93-90E4-D41A65ABEF3C}">
+					<ChildrenList>
+						<Action Name="" ID="{04D63FC7-167B-413C-A341-FA48A47BC26C}" ShortID="368342076">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="end" ID="{BDD3BCC7-7CFC-4031-9750-C788B55071E4}" WorkUnitID="{BC6D6638-ADB5-4AEC-A0B7-A840651491B7}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

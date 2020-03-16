@@ -76,6 +76,7 @@ public class Door : MonoBehaviour
     {
         if(IsInRange())
         {
+            AkSoundEngine.PostEvent("Door", gameObject);
             GameManager._instance.fgm.MovePlayerFile(sceneSync.Path);
         }
     }

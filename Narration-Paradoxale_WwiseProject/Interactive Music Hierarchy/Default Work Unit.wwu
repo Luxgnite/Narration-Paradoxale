@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{81DA9744-CAF4-4E97-AC84-35CF2CA943CD}" SchemaVersion="97">
+	<InteractiveMusic>
+		<WorkUnit Name="Default Work Unit" ID="{81DA9744-CAF4-4E97-AC84-35CF2CA943CD}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="Music" ID="{C1BF5FF5-4780-426C-B275-588000C3D1E1}" ShortID="342559174">
+					<ChildrenList>
+						<MusicSegment Name="soundscape_routt" ID="{05BF3A52-B3F6-4277-BBE4-4FEAB1930161}" ShortID="218844654">
+							<PropertyList>
+								<Property Name="EndPosition" Type="Real64" Value="303673.083900227"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-10</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{54A9789D-EBEC-4E76-A086-4458D45C5BB1}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{3C5CFFA7-A503-4ED5-B805-6AAF2D6798E0}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<MusicTrack Name="soundscape_routt" ID="{B92A606A-7740-4CC6-88BB-D63616BCBB4B}" ShortID="76991480">
+									<ReferenceList>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{3C5CFFA7-A503-4ED5-B805-6AAF2D6798E0}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="soundscape_routt" ID="{6E12FD2D-53C1-4EC0-8AD5-E598693563C8}">
+											<Language>SFX</Language>
+											<AudioFile>soundscape_routt.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="179802272"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<TransitionList>
+										<MusicTransition Name="Root" ID="{19DAC98B-B279-4BBC-A5E9-5B30687C9C1F}">
+											<PropertyList>
+												<Property Name="IsFolder" Type="bool" Value="True"/>
+											</PropertyList>
+											<TransitionInfo/>
+										</MusicTransition>
+									</TransitionList>
+									<SequenceList>
+										<MusicTrackSequence Name="" ID="{1821D32C-A0FD-496F-B8C6-A9EA6AC1B950}">
+											<ClipList>
+												<MusicClip Name="soundscape_routt" ID="{FAAC3FDC-3146-4814-9117-072BB56173F6}">
+													<PropertyList>
+														<Property Name="EndTrimOffset" Type="Real64" Value="303673.083900227"/>
+														<Property Name="FadeInMode" Type="int16" Value="0"/>
+														<Property Name="FadeOutMode" Type="int16" Value="0"/>
+													</PropertyList>
+													<AudioSourceRef Name="soundscape_routt" ID="{6E12FD2D-53C1-4EC0-8AD5-E598693563C8}"/>
+												</MusicClip>
+											</ClipList>
+										</MusicTrackSequence>
+									</SequenceList>
+								</MusicTrack>
+							</ChildrenList>
+							<CueList>
+								<MusicCue Name="Entry Cue" ID="{9FDD9559-AA2D-472B-87BE-64612BB01E1F}"/>
+								<MusicCue Name="Exit Cue" ID="{E5FAF16E-A7B4-470C-8394-89E6C6AE2026}">
+									<PropertyList>
+										<Property Name="CueType" Type="int16" Value="1"/>
+										<Property Name="TimeMs" Type="Real64" Value="303673.083900227"/>
+									</PropertyList>
+								</MusicCue>
+							</CueList>
+						</MusicSegment>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</InteractiveMusic>
+</WwiseDocument>

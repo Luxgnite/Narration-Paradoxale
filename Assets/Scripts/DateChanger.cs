@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 using System.IO;
+using System;
 
 public class DateChanger : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class DateChanger : MonoBehaviour
 
         foreach(FileInfo file in directory.GetFiles())
         {
-            File.SetCreationTime(file.FullName, System.DateTime.Parse(date + " " + time));
+            if(!(Path.GetExtension(file.FullName) == ".zip"))
+                File.SetCreationTime(file.FullName, System.DateTime.Parse(date + " " + time));
         }
 
         foreach (DirectoryInfo folder in directory.GetDirectories())

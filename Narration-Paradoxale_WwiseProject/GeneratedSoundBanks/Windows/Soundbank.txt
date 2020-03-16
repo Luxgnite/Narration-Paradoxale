@@ -1,0 +1,22 @@
+Event	ID	Name			Wwise Object Path	Notes
+	529726532	End			\Default Work Unit\End	
+	1097921553	Ventilation_Stop			\Default Work Unit\Ventilation_Stop	
+	1877847629	Door			\Default Work Unit\Door	
+	2228458843	Ventilation_Play			\Default Work Unit\Ventilation_Play	
+	2299321487	Enemy			\Default Work Unit\Enemy	
+	2376328173	Monster			\Default Work Unit\Monster	
+	2837384057	Stop_Music			\Default Work Unit\Stop_Music	
+	2932040671	Play_Music			\Default Work Unit\Play_Music	
+	3202316517	Switch			\Default Work Unit\Switch	
+	3948365663	Monster__Death			\Default Work Unit\Monster__Death	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	43573299	Ventilation Fan Drone 3	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\Ventilation Fan Drone 3_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Ventilation Fan Drone 3		3907648
+	48829305	door_open2	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\door_open2_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Door\door_open2		153872
+	118704001	corrupted__try	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\corrupted__try_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Monster\corrupted__try		980404
+	179802272	soundscape_routt	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\soundscape_routt_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\Music\soundscape_routt\soundscape_routt		53568060
+	299888590	end	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\end_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\end		18756
+	530320832	switch_off	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\switch_off_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Switch\switch_off		58020
+	627070536	Switch_on	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\Switch_on_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Switch\Switch_on		84772
+	941261145	door_open	E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Windows\SFX\door_open_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Door\door_open		120436
+

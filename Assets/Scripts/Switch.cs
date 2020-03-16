@@ -8,7 +8,13 @@ public class Switch : Interactible
 
     protected override void OnMouseDown()
     {
-        foreach(GameObject obj in objectToToggle)
+        Toggle();
+    }
+
+    public void Toggle()
+    {
+        AkSoundEngine.PostEvent("Switch", gameObject);
+        foreach (GameObject obj in objectToToggle)
         {
             if (obj.activeInHierarchy)
                 obj.SetActive(false);

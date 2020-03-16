@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4834170092026180841}
   - component: {fileID: -5700397172921260987}
   m_Layer: 0
-  m_Name: notes1
+  m_Name: notes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,9 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayText: 
-  timeToDie: 5
+  timeToDie: 10
   dataFromFile: 1
-  fileData: {fileID: 11400000, guid: c6ca9aeed605aee4e8c57e9a09f0b2d9, type: 2}
 --- !u!114 &-5700397172921260987
 MonoBehaviour:
   m_ObjectHideFlags: 0

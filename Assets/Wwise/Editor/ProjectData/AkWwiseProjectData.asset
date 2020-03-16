@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 439616b04b2f2e94ea5096c6bc3e870b, type: 3}
+  m_Name: AkWwiseProjectData
+  m_EditorClassIdentifier: 
+  AcousticTextureWwu:
+  - PhysicalPath: Virtual Acoustics\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: 3e3bc1f7a3ae2f4db7050c814decbc0d
+    GuidInternal: 
+    m_lastTime: -8586173190817204145
+    List: []
+  AuxBusWwu:
+  - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: a7ff5c3c03a5d54eb8056aaf2d6798e0
+    GuidInternal: 
+    m_lastTime: -8586173190816644495
+    List:
+    - name: Master Audio Bus
+      guid: d8a41415a61d2a41a17e75ca0c2149f3
+      id: 3803692087
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+      Path: Default Work Unit\Master Audio Bus
+  BankWwu:
+  - PhysicalPath: SoundBanks\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: bf336fd0fc4cb44ba5d91cbfefb687ef
+    GuidInternal: 
+    m_lastTime: -8586173112429164127
+    List:
+    - name: Soundbank
+      guid: 70c7ec27bd6ea4409d664f8a9847c8b9
+      id: 1661994096
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Soundbank
+        ObjectType: 7
+      Path: Default Work Unit\Soundbank
+  EventWwu:
+  - PhysicalPath: Events\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: 9cc17e1b00c0b04fb34072335d1ac5fe
+    GuidInternal: 
+    m_lastTime: -8586172865668334861
+    List:
+    - name: Door
+      guid: ed44d292650f6545829e613e6c5aa813
+      id: 1877847629
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Door
+        ObjectType: 3
+      Path: Default Work Unit\Door
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Enemy
+      guid: f4c63fb64c34f848ac6077d3d4618d53
+      id: 2299321487
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Enemy
+        ObjectType: 3
+      Path: Default Work Unit\Enemy
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Monster
+      guid: 3f52f05a86dbd64fb0899e5538230611
+      id: 2376328173
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Monster
+        ObjectType: 3
+      Path: Default Work Unit\Monster
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Monster__Death
+      guid: 0b5ca20a85f71d42900c3eb24dfd8492
+      id: 3948365663
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Monster__Death
+        ObjectType: 3
+      Path: Default Work Unit\Monster__Death
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Music
+      guid: 5648f3d3ee892945b5d7cc66af234b66
+      id: 2932040671
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Music
+        ObjectType: 3
+      Path: Default Work Unit\Play_Music
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Stop_Music
+      guid: def55f9933ed8a4db0f46a4d866e6ced
+      id: 2837384057
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Stop_Music
+        ObjectType: 3
+      Path: Default Work Unit\Stop_Music
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Switch
+      guid: d0e176a0aed4bc479e34ccecd15e4be4
+      id: 3202316517
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Switch
+        ObjectType: 3
+      Path: Default Work Unit\Switch
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+  RtpcWwu:
+  - PhysicalPath: Game Parameters\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: 2aa028f09ff0ca498c678c510b637dc4
+    GuidInternal: 
+    m_lastTime: -8586173190816754417
+    List: []
+  StateWwu:
+  - PhysicalPath: States\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: b57eb7a19f4aee41a1c7f43d7b1361da
+    GuidInternal: 
+    m_lastTime: -8586172865668274891
+    List: []
+  SwitchWwu:
+  - PhysicalPath: Switches\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: 191f6148cea20d40808b5d3d419be80b
+    GuidInternal: 
+    m_lastTime: -8586172894347719001
+    List: []
+  TriggerWwu:
+  - PhysicalPath: Triggers\Default Work Unit.wwu
+    ParentPath: Default Work Unit
+    guid: f86dfe2c6792234884b275e3df330d0f
+    GuidInternal: 
+    m_lastTime: -8586172894346392162
+    List: []
+  ExpandedItems:
+  - /Narration-Paradoxale_WwiseProject
+  - /Narration-Paradoxale_WwiseProject/Events
+  - /Narration-Paradoxale_WwiseProject/Events/Default Work Unit
+  autoPopulateEnabled: 1
+  CurrentPluginConfig: 

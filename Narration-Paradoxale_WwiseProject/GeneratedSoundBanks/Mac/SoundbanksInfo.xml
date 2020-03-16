@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="12" SoundbankVersion="135">
+	<RootPaths>
+		<ProjectRoot>E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>E:\Users\Lux\Documents\Projets\Jeux Vidéo\Narration-Paradoxale\Narration-Paradoxale_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="1661994096" Language="SFX">
+			<ObjectPath>\SoundBanks\Default Work Unit\Soundbank</ObjectPath>
+			<ShortName>Soundbank</ShortName>
+			<Path>Soundbank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1877847629" Name="Door" ObjectPath="\Events\Default Work Unit\Door" DurationType="OneShot" DurationMin="0.626938" DurationMax="0.801083">
+					<IncludedMemoryFiles>
+						<File Id="48829305" Language="SFX">
+							<ShortName>door_open2.wav</ShortName>
+							<Path>SFX\door_open2_10C4C929.wem</Path>
+						</File>
+						<File Id="941261145" Language="SFX">
+							<ShortName>door_open.wav</ShortName>
+							<Path>SFX\door_open_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="529726532" Name="End" ObjectPath="\Events\Default Work Unit\End" DurationType="OneShot" DurationMin="0.211927" DurationMax="0.211927">
+					<IncludedMemoryFiles>
+						<File Id="299888590" Language="SFX">
+							<ShortName>end.wav</ShortName>
+							<Path>SFX\end_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2299321487" Name="Enemy" ObjectPath="\Events\Default Work Unit\Enemy" MaxAttenuation="100.000000" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="118704001" Language="SFX">
+							<ShortName>corrupted__try.wav</ShortName>
+							<Path>SFX\corrupted__try_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2376328173" Name="Monster" ObjectPath="\Events\Default Work Unit\Monster" MaxAttenuation="100.000000" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="118704001" Language="SFX">
+							<ShortName>corrupted__try.wav</ShortName>
+							<Path>SFX\corrupted__try_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3948365663" Name="Monster__Death" ObjectPath="\Events\Default Work Unit\Monster__Death" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2932040671" Name="Play_Music" ObjectPath="\Events\Default Work Unit\Play_Music" DurationType="OneShot" DurationMin="303.673096" DurationMax="303.673096">
+					<IncludedMemoryFiles>
+						<File Id="179802272" Language="SFX">
+							<ShortName>soundscape_routt.wav</ShortName>
+							<Path>SFX\soundscape_routt_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2837384057" Name="Stop_Music" ObjectPath="\Events\Default Work Unit\Stop_Music" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="3202316517" Name="Switch" ObjectPath="\Events\Default Work Unit\Switch" DurationType="OneShot" DurationMin="0.301854" DurationMax="0.441188">
+					<IncludedMemoryFiles>
+						<File Id="530320832" Language="SFX">
+							<ShortName>switch_off.wav</ShortName>
+							<Path>SFX\switch_off_10C4C929.wem</Path>
+						</File>
+						<File Id="627070536" Language="SFX">
+							<ShortName>Switch_on.wav</ShortName>
+							<Path>SFX\Switch_on_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="2228458843" Name="Ventilation_Play" ObjectPath="\Events\Default Work Unit\Ventilation_Play" DurationType="OneShot" DurationMin="20.351999" DurationMax="20.351999">
+					<IncludedMemoryFiles>
+						<File Id="43573299" Language="SFX">
+							<ShortName>Ventilation Fan Drone 3.wav</ShortName>
+							<Path>SFX\Ventilation Fan Drone 3_10C4C929.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1097921553" Name="Ventilation_Stop" ObjectPath="\Events\Default Work Unit\Ventilation_Stop" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="43573299" Language="SFX">
+					<ShortName>Ventilation Fan Drone 3.wav</ShortName>
+					<Path>SFX\Ventilation Fan Drone 3_10C4C929.wem</Path>
+				</File>
+				<File Id="48829305" Language="SFX">
+					<ShortName>door_open2.wav</ShortName>
+					<Path>SFX\door_open2_10C4C929.wem</Path>
+				</File>
+				<File Id="118704001" Language="SFX">
+					<ShortName>corrupted__try.wav</ShortName>
+					<Path>SFX\corrupted__try_10C4C929.wem</Path>
+				</File>
+				<File Id="179802272" Language="SFX">
+					<ShortName>soundscape_routt.wav</ShortName>
+					<Path>SFX\soundscape_routt_D79FB2B7.wem</Path>
+				</File>
+				<File Id="299888590" Language="SFX">
+					<ShortName>end.wav</ShortName>
+					<Path>SFX\end_10C4C929.wem</Path>
+				</File>
+				<File Id="530320832" Language="SFX">
+					<ShortName>switch_off.wav</ShortName>
+					<Path>SFX\switch_off_10C4C929.wem</Path>
+				</File>
+				<File Id="627070536" Language="SFX">
+					<ShortName>Switch_on.wav</ShortName>
+					<Path>SFX\Switch_on_10C4C929.wem</Path>
+				</File>
+				<File Id="941261145" Language="SFX">
+					<ShortName>door_open.wav</ShortName>
+					<Path>SFX\door_open_10C4C929.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>
